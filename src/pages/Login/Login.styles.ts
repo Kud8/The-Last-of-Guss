@@ -15,6 +15,15 @@ export const PageWrapper = styled('div')(({ theme }) => ({
   `,
   padding: theme.spacing(3),
   overflow: 'hidden',
+  [theme.breakpoints.down('sm')]: {
+    padding: theme.spacing(2),
+    background: `
+      linear-gradient(135deg, rgba(15, 23, 42, 0.94) 0%, rgba(15, 23, 42, 0.88) 55%, rgba(15, 23, 42, 0.92) 100%),
+      radial-gradient(120% 120% at 20% 20%, rgba(124, 58, 237, 0.2), transparent 45%),
+      radial-gradient(140% 140% at 85% 0%, rgba(59, 130, 246, 0.25), transparent 40%),
+      url('/bg-mobile.png') center/cover no-repeat
+    `,
+  },
 }))
 
 export const Card = styled(Paper)(({ theme }) => ({
