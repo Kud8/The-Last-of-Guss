@@ -1,4 +1,4 @@
-import { FormEvent, useMemo, useState } from 'react'
+import { type FormEvent, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useMutation } from '@tanstack/react-query'
 import TextField from '@mui/material/TextField'
@@ -7,13 +7,34 @@ import Button from '@mui/material/Button'
 import Alert from '@mui/material/Alert'
 import CircularProgress from '@mui/material/CircularProgress'
 import Stack from '@mui/material/Stack'
-import { login } from '../../api/auth'
-import { useAuthStore } from '../../store/auth'
-import { extractErrorMessage } from '../../utils/error'
-import { AccentBar, Actions, Card, Form, Logo, PageWrapper } from './Login.styles'
+import { login } from '../api'
+import { useAuthStore } from '../store'
+import { extractErrorMessage } from '../../../shared/utils/error'
+import { AccentBar, Actions, Card, Form, PageWrapper } from './Login.styles'
 
 const MIN_USERNAME = 3
 const MIN_PASSWORD = 3
+
+const inputStyles = {
+  label: {
+    color: '#0f172a',
+    '&.Mui-focused': { color: '#3b82f6' },
+  },
+  input: {
+    color: '#0f172a',
+    background: 'rgba(255,255,255,0.96)',
+    '& .MuiOutlinedInput-notchedOutline': {
+      borderColor: 'rgba(15,23,42,0.18)',
+    },
+    '&:hover .MuiOutlinedInput-notchedOutline': {
+      borderColor: 'rgba(59,130,246,0.7)',
+    },
+    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+      borderColor: '#3b82f6',
+      boxShadow: '0 0 0 2px rgba(59,130,246,0.15)',
+    },
+  },
+}
 
 function LoginPage() {
   const navigate = useNavigate()
@@ -49,10 +70,10 @@ function LoginPage() {
     <PageWrapper>
       <Card>
         <Stack spacing={1.5}>
-          <Typography variant="h5" component="h1" gutterBottom fontWeight={800}>
+          <Typography variant="h5" component="h1" gutterBottom fontWeight={800} color="#0f172a">
             Войти в игру
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" sx={{ color: '#475569' }}>
             Подключайся, чтобы тапать мутировавшего гуся и поднимать свой счет.
           </Typography>
           <AccentBar />
@@ -68,6 +89,8 @@ function LoginPage() {
             disabled={isPending}
             autoFocus
             fullWidth
+            InputLabelProps={{ sx: inputStyles.label }}
+            InputProps={{ sx: inputStyles.input }}
           />
           <TextField
             label="Пароль"
@@ -78,6 +101,8 @@ function LoginPage() {
             inputProps={{ minLength: MIN_PASSWORD, maxLength: 64 }}
             disabled={isPending}
             fullWidth
+            InputLabelProps={{ sx: inputStyles.label }}
+            InputProps={{ sx: inputStyles.input }}
           />
 
           <Actions>
@@ -88,6 +113,18 @@ function LoginPage() {
               size="large"
               disabled={!isFormValid || isPending}
               startIcon={isPending ? <CircularProgress size={18} color="inherit" /> : null}
+              sx={{
+                background: 'linear-gradient(90deg, #7c3aed, #3b82f6)',
+                color: '#fff',
+                boxShadow: '0 12px 32px rgba(59,130,246,0.35)',
+                '&:hover': {
+                  background: 'linear-gradient(90deg, #6d28d9, #2563eb)',
+                },
+                '&.Mui-disabled': {
+                  opacity: 0.6,
+                  color: '#e2e8f0',
+                },
+              }}
             >
               {isPending ? 'Входим...' : 'Войти'}
             </Button>

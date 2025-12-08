@@ -67,17 +67,7 @@ export const Actions = styled('div')(({ theme }) => ({
   gap: theme.spacing(1.5),
 }))
 
-export const Logo = styled('img')(({ theme }) => ({
-  width: 68,
-  height: 68,
-  objectFit: 'contain',
-  borderRadius: theme.shape.borderRadius,
-  background: 'rgba(255,255,255,0.6)',
-  padding: theme.spacing(1),
-  boxShadow: '0 10px 30px rgba(0,0,0,0.2)',
-}))
-
-export const AccentBar = styled('div')(({ theme }) => ({
+export const AccentBar = styled('div')(() => ({
   width: '100%',
   height: 6,
   borderRadius: 999,

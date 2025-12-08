@@ -1,17 +1,12 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-
-export type UserRole = 'SURVIVOR' | 'NIKITA' | 'ADMIN'
-
-export interface User {
-  username: string
-  role: UserRole
-}
+import type { User } from './types'
 
 interface AuthState {
   token: string | null
   user: User | null
   setAuth: (payload: { token: string; user: User }) => void
+  setUser: (user: User | null) => void
   logout: () => void
 }
 
@@ -21,6 +16,7 @@ export const useAuthStore = create<AuthState>()(
       token: null,
       user: null,
       setAuth: ({ token, user }) => set({ token, user }),
+      setUser: (user) => set({ user }),
       logout: () => set({ token: null, user: null }),
     }),
     {
